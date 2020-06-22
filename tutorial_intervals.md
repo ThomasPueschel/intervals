@@ -1,68 +1,82 @@
----
-title: "Intervals' method tutorial"
-output: rmarkdown::github_document
-author: "Thomas Puschel and Jordi Marce-Nogue"
-date: 2020-04-26T21:13:14-05:00
-categories: ["R"]
-tags: ["FEA", "Intervals"]
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse  = TRUE)
-```
+Intervals’ method tutorial
+================
+Thomas Puschel and Jordi Marce-Nogue
+2020-04-26T21:13:14-05:00
 
 ## Tutorial: How to use R to analyse data from FEA using the intervals’ method
 
+We have developed a new method, named the intervals’ method, to analyse
+data from finite element models in a comparative multivariate
+framework.The intervals’ method consists of generating a set of
+variables, each one defined by an interval of stress values. Each
+variable is expressed as a percentage of the area of the model occupied
+by those stress values. Afterwards these newly generated variables can
+be analysed using multivariate methods.
 
-We have developed a new method, named the intervals’ method, to analyse data from finite element models in a comparative multivariate framework.The intervals’ method consists of generating a set of variables, each one defined by an interval of stress values. Each variable is expressed as a percentage of the area of the model occupied by those stress values. Afterwards these newly generated variables can be analysed using multivariate methods. 
+In the provided example, four armadillo mandibles are studied. They
+correspond to some of the individuals that were analysed in the paper
+where the Intervals’ method was introduced for the first time, showing
+that the proposed method is useful to distinguish and characterise
+biomechanical differences related to diet/ecomorphology:
 
-In the provided example, four armadillo mandibles are studied. They correspond to some of the individuals that were analysed in the paper where the Intervals’ method was introduced for the first time, showing that the proposed method is useful to distinguish and characterise biomechanical differences related to diet/ecomorphology:
+*Ca. unicinctus*: Specialist insectivore
 
-_Ca. unicinctus_: Specialist insectivore
+*Ch. truncatus*: Generalist insectivore-fossorial
 
-_Ch. truncatus_: Generalist insectivore-fossorial
+*D. novemcinctus*: Generalist insectivore
 
-_D. novemcinctus_: Generalist insectivore
+*Ca. tatouay*: Generalist insectivore-fossorial
 
-_Ca. tatouay_: Generalist insectivore-fossorial
+When using this method, please cite the following reference:
+Marcé-Nogué, J., De Esteban-Trivigno, S., Püschel, T.A., Fortuny, J.,
+2017. The intervals method: a new approach to analyse finite element
+outputs using multivariate statistics. PeerJ 5, e3793.
+<https://doi.org/10.7717/peerj.3793>
 
+The R scripts and data files to run the example described below can be
+download from
+<https://figshare.com/articles/intervals-method-files_rar/12025866>
 
+Let’s get started\! Below you will find all the necessary steps to
+obtain the desired number of interval variables and to carry out a PCA
+using them.
 
-When using this method, please cite the following reference: Marcé-Nogué, J., De Esteban-Trivigno, S., Püschel, T.A., Fortuny, J., 2017. The intervals method: a new approach to analyse finite element outputs using multivariate statistics. PeerJ 5, e3793. https://doi.org/10.7717/peerj.3793
+1)  Set the input parameters for the method (these values are defined by
+    the user): Fixed Upper Threshold FTupper
 
-The R scripts and data files to run the example described below can be download from https://figshare.com/articles/intervals-method-files_rar/12025866
+<!-- end list -->
 
-
-Let's get started! Below you will find all the necessary steps to obtain the desired number of interval variables and to carry out a PCA using them. 
-
-
-1) Set the input parameters for the method (these values are defined by the user):
-Fixed Upper Threshold FTupper
-
-
-```{r upper}
+``` r
 FTupper = 0.1;
 ```
 
-Number of intervals: NIntervals (we recommend to define this value using the convergence procedure explained in https://doi.org/10.7717/peerj.3793)
+Number of intervals: NIntervals (we recommend to define this value using
+the convergence procedure explained in
+<https://doi.org/10.7717/peerj.3793>)
 
-```{r NIntervals}
+``` r
 NIntervals = 25;
 ```
 
-2) Read the data.
-The data must be stored as .csv files in the same folder of the script
-Each .csv file must contain three rows with: a) the number of the element, b) area/volume of the element and c) von mises stress, respectively.
+2)  Read the data. The data must be stored as .csv files in the same
+    folder of the script Each .csv file must contain three rows with: a)
+    the number of the element, b) area/volume of the element and c) von
+    mises stress, respectively.
 
-```{r read data}
+<!-- end list -->
+
+``` r
 file.name = list.files(pattern="*.csv")
 NFiles = length(file.name)
 ```
 
-3) Create the matrix of intervals
-Each row with the area percentage for each interval and each file of the matrix 
-with the different models included
-```{r}
+3)  Create the matrix of intervals Each row with the area percentage for
+    each interval and each file of the matrix with the different models
+    included
+
+<!-- end list -->
+
+``` r
 data.intervals = matrix(file.name,ncol = NIntervals, nrow = NFiles)
 
 for (f in 1:NFiles) {
@@ -127,46 +141,59 @@ for (f in 1:NFiles) {
 
 data.intervals=as.data.frame(data.intervals);
 row.names(data.intervals)=file.name;
-
 ```
 
+4)  Save data and remove variables
 
-4) Save data and remove variables
+<!-- end list -->
 
-```{r}
+``` r
 write.csv(data.intervals,'matrix-of-intervals.csv');
 rm(NIntervals, FTupper, NElements, i, j, f, file.name, NFiles, Range.values, Counter.matrix, data.values)
-
 ```
 
-The following steps are necessary to carry the PCA with the newly generated variables
+The following steps are necessary to carry the PCA with the newly
+generated variables
 
-5) install the following packages if required
-```{r}
+5)  install the following packages if
+required
+
+<!-- end list -->
+
+``` r
 if (!require('factoextra')) devtools::install_github("kassambara/factoextra"); library('factoextra')
+## Loading required package: factoextra
+## Loading required package: ggplot2
+## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
 if (!require('ggpubr')) devtools::install_github("kassambara/ggpubr"); library('ggpubr')
+## Loading required package: ggpubr
 if (!require('FactoMineR')) install.packages('FactoMiner'); library('FactoMineR')
-
+## Loading required package: FactoMineR
 ```
 
-6) read the intervals
-```{r}
+6)  read the
+intervals
+
+<!-- end list -->
+
+``` r
 stress.distrib = read.csv("matrix-of-intervals.csv", row.names=1, header = TRUE, sep = ",")
-
 ```
 
-7) compute PCA 
+7)  compute PCA
 
-```{r}
+<!-- end list -->
+
+``` r
 col.number = ncol(stress.distrib)
 PCA.stress <- PCA(stress.distrib[,1:col.number],  graph = FALSE)
 ```
 
+8)  Define the parameters and generate the biplot
 
+<!-- end list -->
 
-
-8) Define the parameters and generate the biplot
-```{r}
+``` r
 # colors by group
 group.colors = row.names(stress.distrib)
 
@@ -177,9 +204,11 @@ interval.colors = interval.vector
 interval.palette = c("blue","cyan","green","chartreuse","yellow","gold","orange","red")
 ```
 
-9) Biplot: variables coloured by contribution to PCs
+9)  Biplot: variables coloured by contribution to PCs
 
-```{r Intervals PCA, tidy=FALSE}
+<!-- end list -->
+
+``` r
 fviz_pca_biplot(PCA.stress, 
                 mean.point=F,                     # 
                 axes.linetype = "solid",
@@ -209,7 +238,6 @@ fviz_pca_biplot(PCA.stress,
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
   )
-
 ```
 
-
+![](tutorial_intervals_files/figure-gfm/Intervals%20PCA-1.png)<!-- -->
