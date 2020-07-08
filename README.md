@@ -15,8 +15,9 @@ D. novemcinctus: Generalist insectivore
 
 Ca. tatouay: Generalist insectivore-fossorial
 
-When using this method, please cite the following reference: Marcé-Nogué, J., De Esteban-Trivigno, S., Püschel, T.A., Fortuny, J., 2017. The intervals method: a new approach to analyse finite element outputs using multivariate statistics. PeerJ 5, e3793. https://doi.org/10.7717/peerj.3793
+When using this method, please cite the following reference: 
+> **Marcé-Nogué, J., De Esteban-Trivigno, S., Püschel, T.A., Fortuny, J., 2017. The intervals method: a new approach to analyse finite element outputs using multivariate statistics. PeerJ 5, e3793. https://doi.org/10.7717/peerj.3793**
 
-The R scripts and data files to run the example described below can be download from https://figshare.com/articles/intervals-method-files_rar/12025866 or from this repository
+The R scripts and data files to run the example described below can be download from [figshare](https://figshare.com/articles/intervals-method-files_rar/12025866) or from this repository
 
-The tutorial can be found here https://github.com/ThomasPueschel/intervals/blob/master/tutorial_intervals.md or here https://www.thomaspuschel.com/post/tutorial_intervals/
+The tutorial can be found [here](https://github.com/ThomasPueschel/intervals/blob/master/tutorial_intervals.md) or in [my personal website](https://www.thomaspuschel.com/post/tutorial_intervals/) 
