@@ -1,5 +1,5 @@
 ---
-title: "Intervals' method tutorial"
+title: "Intervals' method tutorial Part1"
 output: rmarkdown::github_document
 author: "Thomas Puschel and Jordi Marce-Nogue"
 date: 2020-04-26T21:13:14-05:00
@@ -12,6 +12,7 @@ knitr::opts_chunk$set(collapse  = TRUE)
 ```
 
 ## Tutorial: How to use R to analyse data from FEA using the intervals’ method
+# Part1: Generating intervals and carrying out a PCA using these variables
 
 
 We have developed a new method, named the intervals’ method, to analyse data from finite element models in a comparative multivariate framework.The intervals’ method consists of generating a set of variables, each one defined by an interval of stress values. Each variable is expressed as a percentage of the area of the model occupied by those stress values. Afterwards these newly generated variables can be analysed using multivariate methods. 

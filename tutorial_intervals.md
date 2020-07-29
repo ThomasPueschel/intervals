@@ -4,6 +4,8 @@ Thomas Puschel and Jordi Marce-Nogue
 2020-04-26T21:13:14-05:00
 
 ## Tutorial: How to use R to analyse data from FEA using the intervals’ method
+# Part1: Generating intervals and carrying out a PCA using these variables
+
 
 We have developed a new method, named the intervals’ method, to analyse
 data from finite element models in a comparative multivariate

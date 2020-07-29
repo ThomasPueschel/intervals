@@ -19,4 +19,4 @@ When using this method, please cite the following reference:
 
 The R scripts and data files to run the example described below can be download from [figshare](https://figshare.com/articles/intervals-method-files_rar/12025866) or from this [repository](https://github.com/ThomasPueschel/intervals/tree/master/Data)
 
-The tutorial can be found [here](https://github.com/ThomasPueschel/intervals/blob/master/tutorial_intervals.md) or in [my personal website](https://www.thomaspuschel.com/post/tutorial_intervals/) 
+Part 1 of the tutorial (Generating intervals and carrying out a PCA using these variables) can be found [here](https://github.com/ThomasPueschel/intervals/blob/master/tutorial_intervals.md) or in [my personal website](https://www.thomaspuschel.com/post/tutorial_intervals/), whilst Part 2 (Convergence procedure to estimate an appropiate number of intervals) can be found [here](https://github.com/ThomasPueschel/intervals/blob/master/Convergence_procedure.md) 
